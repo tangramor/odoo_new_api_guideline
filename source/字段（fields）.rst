@@ -1,124 +1,123 @@
-Fields
-======
+字段
+====
 
-Now fields are class property: ::
+现在字段是类的属性： ::
 
     from openerp import models, fields
-
 
     class AModel(models.Model):
 
         _name = 'a_name'
 
         name = fields.Char(
-            string="Name",                   # Optional label of the field
-            compute="_compute_name_custom",  # Transform the fields in computed fields
-            store=True,                      # If computed it will store the result
-            select=True,                     # Force index on field
-            readonly=True,                   # Field will be readonly in views
+            string="Name",                   # 字段的可选标签
+            compute="_compute_name_custom",  # 在计算字段里转换的字段
+            store=True,                      # 如果计算，就保存结果
+            select=True,                     # 强制对字段索引
+            readonly=True,                   # 在视图中字段将是只读的
             inverse="_write_name"            # On update trigger
-            required=True,                   # Mandatory field
-            translate=True,                  # Translation enable
-            help='blabla',                   # Help tooltip text
-            company_dependent=True,          # Transform columns to ir.property
-            search='_search_function'        # Custom search function mainly used with compute
+            required=True,                   # 必需的字段
+            translate=True,                  # 启用翻译
+            help='blabla',                   # 工具提示帮助文本
+            company_dependent=True,          # 把列转换到 ir.property
+            search='_search_function'        # 自定义搜索功能，主要和计算一起使用
         )
 
-       # The string key is not mandatory
-       # by default it wil use the property name Capitalized
+       # string 关键字不是必需的
+       # 缺省情况下使用大写属性名称
 
-       name = fields.Char()  #  Valid definition
+       name = fields.Char()  # 合法定义
 
 
 .. _fields_inherit:
 
-Field inheritance
-------------------
+字段继承
+-------
 
-One of the new features of the API is to be able to change only one attribute of the field: ::
+新API的一个新特性就是可以修改字段的一个属性： ::
 
    name = fields.Char(string='New Value')
 
-Field types
------------
+字段类型
+-------
 
-Boolean
-#######
+布尔型（Boolean）
+##############
 
-Boolean type field: ::
+布尔型的字段： ::
 
     abool = fields.Boolean()
 
-Char
-####
+字符型（Char）
+###########
 
-Store string with variable len.: ::
+存储字符串并包含变量长度： ::
 
     achar = fields.Char()
 
 
-Specific options:
+特殊选项：
 
- * size: data will be trimmed to specified size
- * translate: field can be translated
+ * size: 数据会根据指定长度尺寸裁剪
+ * translate: 字段可以被翻译
 
-Text
-####
+文本型（Text）
+###########
 
-Used to store long text.: ::
+用于存储长文本： ::
 
     atext = fields.Text()
 
 
-Specific options:
+特殊选项：
 
- * translate: field can be translated
+ * translate: 字段可以被翻译
 
 HTML
 ####
 
-Used to store HTML, provides an HTML widget.: ::
+用于存储 HTML 代码，提供一个html小部件： ::
 
     anhtml = fields.Html()
 
 
-Specific options:
+特殊选项：
 
- * translate: field can be translated
+ * translate: 字段可以被翻译
 
 
-Integer
-#######
+整型（Integer）
+#############
 
-Store integer value. No NULL value support. If value is not set it returns 0: ::
+存储整数值。不支持 NULL 值，如果未设定值则返回 0： ::
 
     anint = fields.Integer()
 
-Float
-#####
+浮点型（Float）
+############
 
-Store float value. No NULL value support. If value is not set it returns 0.0
-If digits option is set it will use numeric type: ::
+存储浮点值。不支持 NULL 值，如果未设定值则返回 0.0
+如果设定了 digits 选项，那么将使用数值（numeric）类型： ::
 
 
     afloat = fields.Float()
     afloat = fields.Float(digits=(32, 32))
     afloat = fields.Float(digits=lambda cr: (32, 32))
 
-Specific options:
+特殊选项：
 
-  * digits: force use of numeric type on database. Parameter can be a tuple (int len, float len) or a callable that return a tuple and take a cursor as parameter
+  * digits: 强制使用数据库的数值（numeric）类型。参数可以是一个元组（tuple） (int len, float len) 或者一个使用记录指针（cursor）作为参数的、返回值为一个元组（tuple）的可调用方法
 
-Date
-####
+日期型（Date）
+###########
 
-Store date.
-The field provides some helpers:
+存储日期。
+这种字段提供一些辅助方法：
 
-  * ``context_today`` returns current day date string based on tz
-  * ``today`` returns current system date string
-  * ``from_string`` returns datetime.date() from string
-  * ``to_string`` returns date string from datetime.date
+  * ``context_today`` 返回基于时区（tz）的当日日期字符串
+  * ``today`` 返回当前系统日期字符串
+  * ``from_string`` 返回从字符串转换来的 datetime.date() 值
+  * ``to_string`` 返回从datetime.date来的日期字符串
 
 : ::
 
@@ -136,16 +135,16 @@ The field provides some helpers:
     >>> fields.Date.to_string(datetime.datetime.today())
     '2014-06-15'
 
-DateTime
-########
+日期和时间型（DateTime）
+####################
 
-Store datetime.
-The field provide some helper:
+存储日期和时间。
+这种字段提供一些辅助方法：
 
-  * ``context_timestamp`` returns current day date string based on tz
-  * ``now`` returns current system date string
-  * ``from_string`` returns datetime.date() from string
-  * ``to_string`` returns date string from datetime.date
+  * ``context_timestamp`` 返回基于时区（tz）的当日日期时间戳字符串
+  * ``now`` 返回当前系统日期和时间字符串
+  * ``from_string`` 返回从字符串转换来的 datetime.datetime() 值
+  * ``to_string`` 返回从datetime.date来的日期和时间字符串
 
 : ::
 

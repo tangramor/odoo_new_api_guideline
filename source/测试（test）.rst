@@ -1,6 +1,6 @@
-Unittest
+单元测试
 ========
-To get access to the new API in unittest inside common.TransactionCase and others: ::
+在common.TransactionCase内或其它类里的单元测试中访问新API： ::
 
     class test_partner_firstname(common.TransactionCase):
 
@@ -11,8 +11,8 @@ To get access to the new API in unittest inside common.TransactionCase and other
 
 YAML
 ====
-To get access to the new API in Python YAML tag: ::
+在Python YAML标签里访问新API： ::
 
     !python {model: account.invoice, id: account_invoice_customer0}: |
-        self  # is now a new api record
+        self  # 现在是新API记录
         assert (self.move_id), "Move falsely created at pro-forma"

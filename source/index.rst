@@ -3,31 +3,31 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Odoo new API guideline's
+欢迎阅读Odoo新API指南
 ===================================
 
-Overview
+概览
 
 .. toctree::
    :maxdepth: 3
 
-   environment
-   fields
-   decorator
-   introspection
+   环境（environments）
+   字段（fields）
+   装饰符（decorator）
+   自省（introspection）
 
 
 
-Conventions and code update
+约定与代码升级
 
 .. toctree::
    :maxdepth: 3
 
-   conventions
-   compatibility
-   test
+   约定（conventions）
+   兼容性（compatibility）
+   测试（test）
 
-Indices and tables
+目录与附表
 ==================
 
 * :ref:`genindex`
