@@ -215,7 +215,7 @@ HTML
 特殊选项：
 
   * comodel_name: 对应的模型名称
-  * delegate: 为了从当前模型访问目标模型的字段，需要将此选项设为 ``True`` （对应于``_inherits``）
+  * delegate: 为了从当前模型访问目标模型的字段，需要将此选项设为 ``True`` （对应于 ``_inherits`` ）
 
 
 一对多型（One2many）
@@ -264,7 +264,7 @@ HTML
 字段缺省值
 --------
 
-`default`现在是字段的一个关键字，你可以使用值或者方法来为该属性赋值：::
+`default` 现在是字段的一个关键字，你可以使用值或者方法来为该属性赋值：::
 
    name = fields.Char(default='A name')
    # 或者
@@ -284,7 +284,7 @@ HTML
 
 不再有直接的 `fields.function` 创建方式。
 
-作为替代，你可以添加一个``compute``关键字。该关键字属性的值就是一个方法名字符串或者一个返回方法名称的方法。
+作为替代，你可以添加一个 ``compute`` 关键字。该关键字属性的值就是一个方法名字符串或者一个返回方法名称的方法。
 它允许你在类一开始的部分就定义字段：::
 
     class AModel(models.Model):
@@ -314,7 +314,7 @@ HTML
 翻转（Inverse）
 -------
 
-翻转``inverse``关键字允许在字段写入或“创建”时触发修饰方法。
+翻转 ``inverse`` 关键字允许在字段写入或“创建”时触发修饰方法。
 
 
 多字段（Multi Fields）
@@ -333,16 +333,16 @@ HTML
 关联字段（Related Field）
 ----------------------
 
-这不再是``fields.related``字段。
+这不再是 ``fields.related`` 字段。
 
-作为替代你仅仅需要设定``related``关键字属性值为关联字段名：::
+作为替代你仅仅需要设定 ``related`` 关键字属性值为关联字段名：::
 
   participant_nick = fields.Char(string='Nick name',
                                  related='partner_id.name')
 
-``type``关键字不再需要。
+``type`` 关键字不再需要。
 
-设定``store``关键字属性会自动存储值到数据库。新API会自动更新关联字段的值，贴心：::
+设定 ``store`` 关键字属性会自动存储值到数据库。新API会自动更新关联字段的值，贴心：::
 
   participant_nick = fields.Char(string='Nick name',
                                  store=True,
@@ -359,7 +359,7 @@ HTML
 
 在有一些用例里，字段值必须修改到当前公司的依赖。
 
-要启用这种动作，你现在可以使用`company_dependent`选项。
+要启用这种动作，你现在可以使用 `company_dependent` 选项。
 
 一个值得注意的进展是，在新API里属性字段（property fields）现在是可搜索的。
 
@@ -367,7 +367,7 @@ HTML
 半成品可拷贝选项（WIP copyable option）
 ----------------------------------
 
-在字段上简单的设定``copy``选项，可以防止重新定义拷贝（There is a dev running that will prevent to redefine copy by simply
+在字段上简单的设定 ``copy`` 选项，可以防止重新定义拷贝（There is a dev running that will prevent to redefine copy by simply
 setting a copy option on fields）：::
 
   copy=False  # !! WIP to prevent redefine copy
