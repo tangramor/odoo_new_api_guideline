@@ -1,7 +1,7 @@
 字段
 ====
 
-现在字段是类的属性： ::
+现在字段是类的属性：::
 
     from openerp import models, fields
 
@@ -34,7 +34,7 @@
 字段继承
 -------
 
-新API的一个新特性就是可以修改字段的一个属性： ::
+新API的一个新特性就是可以修改字段的一个属性：::
 
    name = fields.Char(string='New Value')
 
@@ -44,14 +44,14 @@
 布尔型（Boolean）
 ##############
 
-布尔型的字段： ::
+布尔型的字段：::
 
     abool = fields.Boolean()
 
 字符型（Char）
 ###########
 
-存储字符串并包含变量长度： ::
+存储字符串并包含变量长度：::
 
     achar = fields.Char()
 
@@ -64,7 +64,7 @@
 文本型（Text）
 ###########
 
-用于存储长文本： ::
+用于存储长文本：::
 
     atext = fields.Text()
 
@@ -76,7 +76,7 @@
 HTML
 ####
 
-用于存储 HTML 代码，提供一个html小部件： ::
+用于存储 HTML 代码，提供一个html小部件：::
 
     anhtml = fields.Html()
 
@@ -89,7 +89,7 @@ HTML
 整型（Integer）
 #############
 
-存储整数值。不支持 NULL 值，如果未设定值则返回 0： ::
+存储整数值。不支持 NULL 值，如果未设定值则返回 0：::
 
     anint = fields.Integer()
 
@@ -97,7 +97,7 @@ HTML
 ############
 
 存储浮点值。不支持 NULL 值，如果未设定值则返回 0.0
-如果设定了 digits 选项，那么将使用数值（numeric）类型： ::
+如果设定了 digits 选项，那么将使用数值（numeric）类型：::
 
 
     afloat = fields.Float()
@@ -119,7 +119,7 @@ HTML
   * ``from_string`` 返回从字符串转换来的 datetime.date() 值
   * ``to_string`` 返回从datetime.date来的日期字符串
 
-: ::
+::
 
     >>> from openerp import fields
 
@@ -146,7 +146,7 @@ HTML
   * ``from_string`` 返回从字符串转换来的 datetime.datetime() 值
   * ``to_string`` 返回从datetime.date来的日期和时间字符串
 
-: ::
+::
 
     >>> fields.Datetime.context_timestamp(self, timestamp=datetime.datetime.now())
     datetime.datetime(2014, 6, 15, 21, 26, 1, 248354, tzinfo=<DstTzInfo 'Europe/Brussels' CEST+2:00:00 DST>)
@@ -158,83 +158,84 @@ HTML
     '2014-06-15 19:26:13'
 
 
-Binary
-######
+二进制型（Binary）
+###############
 
-Store file encoded in base64 in bytea column: ::
+存储以base64编码的文件到字节列：::
 
     abin = fields.Binary()
 
-Selection
-#########
+可选型（Selection）
+################
 
-Store text in database but propose a selection widget.
-It induces no selection constraint in database.
-Selection must be set as a list of tuples or a callable that returns a list of tuples: ::
+存储文本，但给出一个可选项小部件。
+它向数据库引入了非可选约束。（It induces no selection constraint in database.）
+可选型必须设置为元组（tuples）列表或者一个返回元组（tuples）列表的可调用方法：::
 
     aselection = fields.Selection([('a', 'A')])
     aselection = fields.Selection(selection=[('a', 'A')])
     aselection = fields.Selection(selection='a_function_name')
 
-Specific options:
+特殊选项：
 
-  * selection: a list of tuple or a callable name that take recordset as input
-  * size: the option size=1 is mandatory when using indexes that are integers, not strings
+  * selection: 元组（tuples）列表或者一个使用记录集为输入参数的返回元组（tuples）列表的可调用方法名称
+  * size: 当使用的索引是整型而非字符串时，必须设定本选项且须设置size=1
 
-When extending a model, if you want to add possible values to a selection field,
-you may use the `selection_add` keyword argument::
+在扩展一个模型时，如果你希望向可选型字段添加可能的值，你应该用到 `selection_add` 关键字参数：::
 
    class SomeModel(models.Model):
        _inherits = 'some.model'
        type = fields.Selection(selection_add=[('b', 'B'), ('c', 'C')])
 
-Reference
-#########
 
-Store an arbitrary reference to a model and a row: ::
+引用型（Reference）
+################
+
+存储到一个模型和一行记录的任意引用：::
 
     aref = fields.Reference([('model_name', 'String')])
     aref = fields.Reference(selection=[('model_name', 'String')])
     aref = fields.Reference(selection='a_function_name')
 
-Specific options:
+特殊选项：
 
-  * selection: a list of tuple or a callable name that take recordset as input
+  * selection: 元组（tuples）列表或者一个使用记录集为输入参数的返回元组（tuples）列表的可调用方法名称
 
 
-Many2one
-########
+多对一型（Many2one）
+#################
 
-Store a relation against a co-model: ::
+存储模型之间的多对一关联：::
 
     arel_id = fields.Many2one('res.users')
     arel_id = fields.Many2one(comodel_name='res.users')
     an_other_rel_id = fields.Many2one(comodel_name='res.partner', delegate=True)
 
 
-Specific options:
+特殊选项：
 
-  * comodel_name: name of the opposite model
-  * delegate: set it to ``True`` to make fields of the target model accessible from the current model (corresponds to ``_inherits``)
+  * comodel_name: 对应的模型名称
+  * delegate: 为了从当前模型访问目标模型的字段，需要将此选项设为 ``True`` （对应于``_inherits``）
 
-One2many
-########
 
-Store a relation against many rows of co-model: ::
+一对多型（One2many）
+#################
+
+存储到对应模型的多个记录的关联：::
 
     arel_ids = fields.One2many('res.users', 'rel_id')
     arel_ids = fields.One2many(comodel_name='res.users', inverse_name='rel_id')
 
-Specific options:
+特殊选项：
 
-  * comodel_name: name of the opposite model
-  * inverse_name: relational column of the opposite model
+  * comodel_name: 对应的模型名称
+  * inverse_name: 对应的模型的关联字段名称
 
 
-Many2many
-#########
+多对多型（Many2many）
+##################
 
-Store a relation against many2many rows of co-model: ::
+存储到对应模型的多对多个记录的关联：::
 
     arel_ids = fields.Many2many('res.users')
     arel_ids = fields.Many2many(comodel_name='res.users',
@@ -243,51 +244,48 @@ Store a relation against many2many rows of co-model: ::
                                 column2='other_col_name')
 
 
-Specific options:
+特殊选项：
 
-  * comodel_name: name of the opposite model
-  * relation: relational table name
-  * columns1: relational table left column name
-  * columns2: relational table right column name
+  * comodel_name: 对应的模型名称
+  * relation: 关联的表名称
+  * columns1: 关联表左字段名称
+  * columns2: 关联表右字段名称
 
 
-Name Conflicts
---------------
+名称冲突
+-------
 
 .. note::
-   fields and method name can conflict.
+   字段和方法名称有可能出现冲突。
 
-When you call a record as a dict it will force to look on the columns.
+当你使用字典（dict）类型来调用一个记录时，将强制查询这个名字的字段。
 
 
-Fields Defaults
----------------
+字段缺省值
+--------
 
-Default is now a keyword of a field:
-
-You can attribute it a value or a function
-
-::
+`default`现在是字段的一个关键字，你可以使用值或者方法来为该属性赋值：::
 
    name = fields.Char(default='A name')
-   # or
+   # 或者
    name = fields.Char(default=a_fun)
 
    #...
    def a_fun(self):
       return self.do_something()
 
-Using a fun will force you to define function before fields definition.
+当使用方法时，你必须在字段定义前定义该方法。
 
 
 
 
-Computed Fields
----------------
-There is no more direct creation of fields.function.
+计算字段（Computed Fields）
+------------------------
 
-Instead you add a ``compute`` kwarg. The value is the name of the function as a string or a function.
-This allows to have fields definition atop of class: ::
+不再有直接的 `fields.function` 创建方式。
+
+作为替代，你可以添加一个``compute``关键字。该关键字属性的值就是一个方法名字符串或者一个返回方法名称的方法。
+它允许你在类一开始的部分就定义字段：::
 
     class AModel(models.Model):
         _name = 'a_name'
@@ -299,34 +297,30 @@ This allows to have fields definition atop of class: ::
             self.computed_total = x
 
 
-The function can be void.
-It should modify record property in order to be written to the cache: ::
+这个方法可以是空的。
+它应该修改记录属性以便写入到缓存里：::
 
   self.name = new_value
 
-Be aware that this assignation will trigger a write into the database.
-If you need to do bulk change or must be careful about performance,
-you should do classic call to write
+要注意这个赋值会触发数据库的写操作。
+如果你需要对大量数据进行修改或者必须考虑性能，你应该使用经典方式来写数据库。
 
-To provide a search function on a non stored computed field
-you have to add a ``search`` kwarg on the field. The value is the name of the function
-as a string or a reference to a previously defined method. The function takes the second
-and third member of a domain tuple and returns a domain itself ::
+为了提供搜索功能到未持久化的计算字段，你必须为该字段添加 ``search`` 关键字。该关键字属性的值就是一个方法名字符串或者或者之前定义的一个返回方法名称的方法，这个方法的第2和第3个参数均为域元组（domain tuple），返回一个域（domain）本身（The function takes the second and third member of a domain tuple and returns a domain itself）：::
 
         def search_total(self, operator, operand):
 	    ...
             return domain  # e.g. [('id', 'in', ids)] 
 
-Inverse
+翻转（Inverse）
 -------
 
-The inverse key allows to trigger call of the decorated function
-when the field is written/"created"
+翻转``inverse``关键字允许在字段写入或“创建”时触发修饰方法。
 
 
-Multi Fields
-------------
-To have one function that compute multiple values: ::
+多字段（Multi Fields）
+-------------------
+
+一个方法计算多个值：::
 
     @api.multi
     @api.depends('field.relation', 'an_otherfield.relation')
@@ -336,49 +330,44 @@ To have one function that compute multiple values: ::
             x.untaxed = an_algo
 
 
-Related Field
--------------
+关联字段（Related Field）
+----------------------
 
-There is not anymore ``fields.related`` fields.
+这不再是``fields.related``字段。
 
-Instead you just set the name argument related to your model: ::
+作为替代你仅仅需要设定``related``关键字属性值为关联字段名：::
 
   participant_nick = fields.Char(string='Nick name',
                                  related='partner_id.name')
 
-The ``type`` kwarg is not needed anymore.
+``type``关键字不再需要。
 
-Setting the ``store`` kwarg will automatically store the value in database.
-With new API the value of the related field will be automatically
-updated, sweet. ::
+设定``store``关键字属性会自动存储值到数据库。新API会自动更新关联字段的值，贴心：::
 
   participant_nick = fields.Char(string='Nick name',
                                  store=True,
                                  related='partner_id.name')
 
 .. note::
-   When updating any related field not all
-   translations of related field are translated if field
-   is stored!!
+   当更新任何关联字段时，如果有字段已经保存，不是所有关联字段的翻译都会更新！！
 
-Chained related fields modification will trigger invalidation of the cache
-for all elements of the chain.
+关联字段的链条上的改动会触发对链条上所有元素缓存的失效。
 
 
-Property Field
---------------
+属性字段（Property Field）
+-----------------------
 
-There is some use cases where value of the field must change depending of
-the current company.
+在有一些用例里，字段值必须修改到当前公司的依赖。
 
-To activate such behavior you can now use the `company_dependent` option.
+要启用这种动作，你现在可以使用`company_dependent`选项。
 
-A notable evolution in new API is that "property fields" are now searchable.
+一个值得注意的进展是，在新API里属性字段（property fields）现在是可搜索的。
 
-WIP copyable option
--------------------
 
-There is a dev running that will prevent to redefine copy by simply
-setting a copy option on fields: ::
+半成品可拷贝选项（WIP copyable option）
+----------------------------------
+
+在字段上简单的设定``copy``选项，可以防止重新定义拷贝（There is a dev running that will prevent to redefine copy by simply
+setting a copy option on fields）：::
 
   copy=False  # !! WIP to prevent redefine copy

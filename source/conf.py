@@ -46,8 +46,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Odoo new API guideline'
-copyright = u'2014, Nicolas Bessi'
+project = u'Odoo 8.0 新API指南'
+copyright = u'2014, Nicolas Bessi; 2016, Wang Junhua(Chinese version)'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -199,8 +199,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'OdoonewAPIguideline.tex', u'Odoo new API guideline Documentation',
-   u'Nicolas Bessi', 'manual'),
+  ('index', 'Odoo8.0APIguideline.tex', u'Odoo 8.0 新API指南',
+   u'Nicolas Bessi; Wang Junhua', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -229,8 +229,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'odoonewapiguideline', u'Odoo new API guideline Documentation',
-     [u'Nicolas Bessi'], 1)
+    ('index', 'odoo8.0apiguideline', u'Odoo 8.0 API guideline Documentation',
+     [u'Nicolas Bessi', u'Wang Junhua'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -243,8 +243,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'OdoonewAPIguideline', u'Odoo new API guideline Documentation',
-   u'Nicolas Bessi', 'OdoonewAPIguideline', 'One line description of project.',
+  ('index', 'Odoo8.0APIguideline', u'Odoo 8.0 新API指南',
+   u'Nicolas Bessi; Wang Junhua', 'OdoonewAPIguideline', 'One line description of project.',
    'Miscellaneous'),
 ]
 

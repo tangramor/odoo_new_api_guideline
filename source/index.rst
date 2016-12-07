@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-欢迎阅读Odoo新API指南
+欢迎阅读Odoo 8.0新API指南
 ===================================
 
 概览
@@ -13,7 +13,7 @@
 
    环境（environments）
    字段（fields）
-   装饰符（decorator）
+   修饰符（decorator）
    自省（introspection）
 
 
