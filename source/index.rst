@@ -13,7 +13,7 @@
 
    环境（environments）
    字段（fields）
-   修饰符（decorator）
+   装饰器（decorator）
    自省（introspection）
 
 
