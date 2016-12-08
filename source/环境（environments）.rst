@@ -13,7 +13,7 @@ OpenERP/Odoo 8.0版引入了一个新的ORM API。
 模型（Model）
 -----------------
 
-一个模型代表了一个商业对象。
+一个模型代表了一个业务对象。
 
 它本质上是一个类，包含各种类有关的功能定义和存储在数据库中的字段。
 所有定义在模型中的方法都可以被模型本身直接调用。
@@ -39,7 +39,7 @@ OpenERP/Odoo 8.0版引入了一个新的ORM API。
 
     class MyModelExtended(Model):
          _inherit = 'a.model'                       # 直接继承
-         _inherit = ['a.model', 'a.other.model']     # 直接继承
+         _inherit = ['a.model', 'a.other.model']    # 直接继承
          _inherits = {'a.model': 'field_name'}      # 多重继承
 
 关于继承更多的细节内容，请参考
@@ -71,15 +71,15 @@ OpenERP/Odoo 8.0版引入了一个新的ORM API。
 
 在这个例子里，方法定义在模型一级，但是当运行这段代码时， ``self`` 变量实际上是包含很多记录的一个记录集的实例。
 
-所以传入 ``do_something`` 的 self 是一个含义一系列记录的记录集。
+所以传入 ``do_something`` 的 self 是一个包含一系列记录的记录集。
 
 如果你用 ``@api.one`` 装饰一个方法的话，它会自动遍历当前记录集的记录，然后这时的 self 就是当前这条记录。
 
 如我们在 :ref:`records` 中所述，你现在访问的就是一个伪 Active-Record模式。
 
 .. note::
-   如果记录集只含有一条记录，你把这个装饰器用在该记录集上会导致中断。
-   If you use it on a RecordSet it will break if recordset does not contains only one item.!!
+   如果记录集只含有一条记录，你把这个装饰器用在该记录集上会导致中断！！
+   （If you use it on a RecordSet it will break if recordset does not contains only one item.!!）
 
 
 支持的操作
@@ -99,7 +99,7 @@ OpenERP/Odoo 8.0版引入了一个新的ORM API。
 
 记录集也可以被排序： ::
 
-  sorted(recordset, key=lambda x: x.column)
+  sorted(recordset, key=lambda x: x.column)example
 
 有用的辅助方法
 -------------------
@@ -142,7 +142,8 @@ ids 属性是记录集的一个特殊属性，当记录集包含一个或更多�
 记录（Record）
 ------------------
 
-一个记录反映了从数据库中取得的“模型记录实例”。它使用缓存和查询生成了数据库记录条目的抽象；:
+一个记录反映了从数据库中取得的“模型记录实例”。它使用缓存和查询生成了数据库记录条目的抽象：
+::
 
   >>> record = self
   >>> record.name
@@ -157,12 +158,12 @@ ids 属性是记录集的一个特殊属性，当记录集包含一个或更多�
 在新API里一个叫显示名称的概念被引入。它使用 ``name_get`` 底层方法。
 
 
-所以如果你希望覆盖显示名称，你需要覆盖 ``display_name`` 字段
-`Example <https://github.com/odoo/odoo/blob/8.0/openerp/addons/base/res/res_partner.py#L232>`_
+所以如果你希望覆盖显示名称，你需要覆盖 ``display_name`` 字段。
+`示例 <https://github.com/odoo/odoo/blob/8.0/openerp/addons/base/res/res_partner.py#L232>`_
 
 
 如果你希望覆盖显示名称和计算出的相关名称，你需要覆盖 ``name_get``。
-`Example <https://github.com/odoo/odoo/blob/8.0/addons/event/event.py#L194>`_
+`示例 <https://github.com/odoo/odoo/blob/8.0/addons/event/event.py#L194>`_
 
 
 .. _ac_pattern:
@@ -483,7 +484,8 @@ will not introspect to look for the relation. ::
 
 当创建一个包含计算字段的记录或模型时，记录集的记录只在内存里。此时记录的 `id` 将是一个 :py:class:`openerp.models.NewId` 类型的虚拟id。
 
-所以如果你在你的代码里（例如一段SQL查询）用到了记录 `id` 的话，你应该先检查它是否存在：::
+所以如果你在你的代码里（例如一段SQL查询）用到了记录 `id` 的话，你应该先检查它是否存在：
+::
 
    if isinstance(current_record.id, models.NewId):
        # 你的代码

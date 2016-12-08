@@ -1,7 +1,8 @@
 字段
 ============
 
-现在字段是类的属性：::
+现在字段是类的属性：
+::
 
     from openerp import models, fields
 
@@ -15,7 +16,7 @@
             store=True,                      # 如果计算，就保存结果
             select=True,                     # 强制对字段索引
             readonly=True,                   # 在视图中字段将是只读的
-            inverse="_write_name"            # On update trigger
+            inverse="_write_name"            # 在修改时触发
             required=True,                   # 必需的字段
             translate=True,                  # 启用翻译
             help='blabla',                   # 工具提示帮助文本
@@ -34,7 +35,8 @@
 字段继承
 -----------
 
-新API的一个新特性就是可以修改字段的一个属性：::
+新API的一个新特性就是可以修改字段的一个属性：
+::
 
    name = fields.Char(string='New Value')
 
@@ -44,14 +46,16 @@
 布尔型（Boolean）
 ##################
 
-布尔型的字段：::
+布尔型的字段：
+::
 
     abool = fields.Boolean()
 
 字符型（Char）
 #################
 
-存储字符串并包含变量长度：::
+存储字符串并包含变量长度：
+::
 
     achar = fields.Char()
 
@@ -64,7 +68,8 @@
 文本型（Text）
 ####################
 
-用于存储长文本：::
+用于存储长文本：
+::
 
     atext = fields.Text()
 
@@ -76,7 +81,8 @@
 HTML
 ########
 
-用于存储 HTML 代码，提供一个html小部件：::
+用于存储 HTML 代码，提供一个html小部件：
+::
 
     anhtml = fields.Html()
 
@@ -89,7 +95,8 @@ HTML
 整型（Integer）
 ######################
 
-存储整数值。不支持 NULL 值，如果未设定值则返回 0：::
+存储整数值。不支持 NULL 值，如果未设定值则返回 0：
+::
 
     anint = fields.Integer()
 
@@ -97,7 +104,8 @@ HTML
 #####################
 
 存储浮点值。不支持 NULL 值，如果未设定值则返回 0.0
-如果设定了 digits 选项，那么将使用数值（numeric）类型：::
+如果设定了 digits 选项，那么将使用数值（numeric）类型：
+::
 
 
     afloat = fields.Float()
@@ -161,7 +169,8 @@ HTML
 二进制型（Binary）
 ########################
 
-存储以base64编码的文件到字节列：::
+存储以base64编码的文件到字节列：
+::
 
     abin = fields.Binary()
 
@@ -170,7 +179,8 @@ HTML
 
 存储文本，但给出一个可选项小部件。
 它向数据库引入了非可选约束。（It induces no selection constraint in database.）
-可选型必须设置为元组（tuples）列表或者一个返回元组（tuples）列表的可调用方法：::
+可选型必须设置为元组（tuples）列表或者一个返回元组（tuples）列表的可调用方法：
+::
 
     aselection = fields.Selection([('a', 'A')])
     aselection = fields.Selection(selection=[('a', 'A')])
@@ -181,7 +191,8 @@ HTML
   * selection: 元组（tuples）列表或者一个使用记录集为输入参数的返回元组（tuples）列表的可调用方法名称
   * size: 当使用的索引是整型而非字符串时，必须设定本选项且须设置size=1
 
-在扩展一个模型时，如果你希望向可选型字段添加可能的值，你应该用到 `selection_add` 关键字参数：::
+在扩展一个模型时，如果你希望向可选型字段添加可能的值，你应该用到 `selection_add` 关键字参数：
+::
 
    class SomeModel(models.Model):
        _inherits = 'some.model'
@@ -191,7 +202,8 @@ HTML
 引用型（Reference）
 #########################
 
-存储到一个模型和一行记录的任意引用：::
+存储到一个模型和一行记录的任意引用：
+::
 
     aref = fields.Reference([('model_name', 'String')])
     aref = fields.Reference(selection=[('model_name', 'String')])
@@ -205,7 +217,8 @@ HTML
 多对一型（Many2one）
 ##########################
 
-存储模型之间的多对一关联：::
+存储模型之间的多对一关联：
+::
 
     arel_id = fields.Many2one('res.users')
     arel_id = fields.Many2one(comodel_name='res.users')
@@ -221,7 +234,8 @@ HTML
 一对多型（One2many）
 ##########################
 
-存储到对应模型的多个记录的关联：::
+存储到对应模型的多个记录的关联：
+::
 
     arel_ids = fields.One2many('res.users', 'rel_id')
     arel_ids = fields.One2many(comodel_name='res.users', inverse_name='rel_id')
@@ -235,7 +249,8 @@ HTML
 多对多型（Many2many）
 ###########################
 
-存储到对应模型的多对多个记录的关联：::
+存储到对应模型的多对多个记录的关联：
+::
 
     arel_ids = fields.Many2many('res.users')
     arel_ids = fields.Many2many(comodel_name='res.users',
@@ -264,7 +279,8 @@ HTML
 字段缺省值
 -------------
 
-`default` 现在是字段的一个关键字，你可以使用值或者方法来为该属性赋值：::
+`default` 现在是字段的一个关键字，你可以使用值或者方法来为该属性赋值：
+::
 
    name = fields.Char(default='A name')
    # 或者
@@ -285,7 +301,8 @@ HTML
 不再有直接的 `fields.function` 创建方式。
 
 作为替代，你可以添加一个 ``compute`` 关键字。该关键字属性的值就是一个方法名字符串或者一个返回方法名称的方法。
-它允许你在类一开始的部分就定义字段：::
+它允许你在类一开始的部分就定义字段：
+::
 
     class AModel(models.Model):
         _name = 'a_name'
@@ -298,14 +315,16 @@ HTML
 
 
 这个方法可以是空的。
-它应该修改记录属性以便写入到缓存里：::
+它应该修改记录属性以便写入到缓存里：
+::
 
   self.name = new_value
 
 要注意这个赋值会触发数据库的写操作。
 如果你需要对大量数据进行修改或者必须考虑性能，你应该使用经典方式来写数据库。
 
-为了提供搜索功能到未持久化的计算字段，你必须为该字段添加 ``search`` 关键字。该关键字属性的值就是一个方法名字符串或者或者之前定义的一个返回方法名称的方法，这个方法的第2和第3个参数均为域元组（domain tuple），返回一个域（domain）本身（The function takes the second and third member of a domain tuple and returns a domain itself）：::
+为了提供搜索功能到未持久化的计算字段，你必须为该字段添加 ``search`` 关键字。该关键字属性的值就是一个方法名字符串或者或者之前定义的一个返回方法名称的方法，这个方法的第2和第3个参数均为域元组（domain tuple），返回一个域（domain）本身（The function takes the second and third member of a domain tuple and returns a domain itself）：
+::
 
         def search_total(self, operator, operand):
 	    ...
@@ -320,7 +339,8 @@ HTML
 多字段（Multi Fields）
 ---------------------------
 
-一个方法计算多个值：::
+一个方法计算多个值：
+::
 
     @api.multi
     @api.depends('field.relation', 'an_otherfield.relation')
@@ -335,14 +355,16 @@ HTML
 
 这不再是 ``fields.related`` 字段。
 
-作为替代你仅仅需要设定 ``related`` 关键字属性值为关联字段名：::
+作为替代你仅仅需要设定 ``related`` 关键字属性值为关联字段名：
+::
 
   participant_nick = fields.Char(string='Nick name',
                                  related='partner_id.name')
 
 ``type`` 关键字不再需要。
 
-设定 ``store`` 关键字属性会自动存储值到数据库。新API会自动更新关联字段的值，贴心：::
+设定 ``store`` 关键字属性会自动存储值到数据库。新API会自动更新关联字段的值，贴心：
+::
 
   participant_nick = fields.Char(string='Nick name',
                                  store=True,
@@ -368,6 +390,7 @@ HTML
 -----------------------------------------
 
 在字段上简单的设定 ``copy`` 选项，可以防止重新定义拷贝（There is a dev running that will prevent to redefine copy by simply
-setting a copy option on fields）：::
+setting a copy option on fields）：
+::
 
   copy=False  # !! WIP to prevent redefine copy
