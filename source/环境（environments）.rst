@@ -35,7 +35,7 @@ OpenERP/Odoo 8.0版引入了一个新的ORM API。
 继承（Inheritance）
 ##########################
 
-继承机制没有任何变化。你可以使用： ::
+继承机制没有任何变化。你可以使用：\n::
 
     class MyModelExtended(Model):
          _inherit = 'a.model'                       # 直接继承
@@ -56,7 +56,7 @@ OpenERP/Odoo 8.0版引入了一个新的ORM API。
 所有模型的实例同时也是对应记录集的实例。
 一个记录集表达了对应模型的经过排序的记录的集合。
 
-你可以在记录集里调用方法： ::
+你可以在记录集里调用方法：\n::
 
     class AModel(Model):
     # ...
@@ -85,7 +85,7 @@ OpenERP/Odoo 8.0版引入了一个新的ORM API。
 支持的操作
 ----------------
 
-记录集也支持集合操作，你可以使用 联合、交、补 等运算： ::
+记录集也支持集合操作，你可以使用 联合、交、补 等运算：\n::
 
     record in recset1       # 属于
     record not in recset1   # 不属于
@@ -97,7 +97,7 @@ OpenERP/Odoo 8.0版引入了一个新的ORM API。
 
 只有 ``+`` 操作符保留集合元素的顺序
 
-记录集也可以被排序： ::
+记录集也可以被排序：\n::
 
   sorted(recordset, key=lambda x: x.column)example
 
@@ -106,13 +106,13 @@ OpenERP/Odoo 8.0版引入了一个新的ORM API。
 
 新的API为记录集提供了很多有用的辅助方法。
 
-你可以轻易的过滤已有的记录集： ::
+你可以轻易的过滤已有的记录集：\n::
 
     recset.filtered(lambda record: record.company_id == user.company_id)
     # 或使用字符串
     recset.filtered("product_id.can_be_sold")
 
-你可以对一个记录集排序： ::
+你可以对一个记录集排序：\n::
     
     # 按名称对记录排序
     recset.sorted(key=lambda r: r.name)
@@ -122,7 +122,7 @@ OpenERP/Odoo 8.0版引入了一个新的ORM API。
     from operator import attrgetter
     recset.sorted(key=attrgetter('partner_id', 'name'))
     
-有一个映射记录集的辅助方法： ::
+有一个映射记录集的辅助方法：\n::
 
     recset.mapped(lambda record: record.price_unit - record.cost_price)
     
@@ -171,7 +171,7 @@ ids 属性是记录集的一个特殊属性，当记录集包含一个或更多�
 Active Record 模式
 ###########################
 
-在新API引入的新特性之一是对active record模式的基础支撑。你现在可以使用设置属性（setting properties）来写入数据库： ::
+在新API引入的新特性之一是对active record模式的基础支撑。你现在可以使用设置属性（setting properties）来写入数据库：\n::
 
   record = self
   record.name = 'new name'
@@ -182,7 +182,7 @@ Active Record 模式
 Active Record模式 注意事项
 #################################
 
-使用Active Record模式写值必须要小心，因为每一个值的指定都会触发数据库的写操作： ::
+使用Active Record模式写值必须要小心，因为每一个值的指定都会触发数据库的写操作：\n::
 
 
     @api.one
@@ -194,7 +194,7 @@ Active Record模式 注意事项
 在这个例子里每一个赋值都会触发写操作。
 因为这个方法使用了 ``@api.one`` 装饰，对记录集里的每个记录的写操作都会被调用3次，那么如果你的记录集有10条记录，一共会有 10*3 = 30 次写操作。
 
-这在高负载任务里会导致性能问题。你应该这样写： ::
+这在高负载任务里会导致性能问题。你应该这样写：\n::
 
     def better_write(self):
        for rec in self:
@@ -224,7 +224,7 @@ Active Record模式 注意事项
 .. image:: Diagram1.png
 
 
-有了这个附加功能，你就不用传递那么多的方法参数了： ::
+有了这个附加功能，你就不用传递那么多的方法参数了：\n::
 
 
     # 以前
@@ -236,7 +236,7 @@ Active Record模式 注意事项
         pass
 
 
-为了访问到环境，你需要： ::
+为了访问到环境，你需要：\n::
 
     def afun(self):
          self.env
@@ -249,11 +249,11 @@ Active Record模式 注意事项
 修改环境
 -------------
 
-如果你需要修改当前的上下文，你需要使用 with_context() 方法： ::
+如果你需要修改当前的上下文，你需要使用 with_context() 方法：\n::
 
   self.env['res.partner'].with_context(tz=x).create(vals)
 
-要小心不要使用如下方法修改当前记录集： ::
+要小心不要使用如下方法修改当前记录集：\n::
 
    self = self.env['res.partner'].with_context(tz=x).browse(self.ids)
 
@@ -264,7 +264,7 @@ Active Record模式 注意事项
 改变用户
 ################
 
-环境提供了一个切换用户的辅助方法： ::
+环境提供了一个切换用户的辅助方法：\n::
 
     self.sudo(user.id)
     self.sudo()   # 缺省会使用 SUPERUSER_ID
@@ -292,7 +292,7 @@ Active Record模式 注意事项
 
 在前面我们介绍了环境维护着多种缓存，这些缓存用于模型、字段等类。
 
-有时候你可能必须要使用记录指针（cursor）来直接插入/写数据，这种情况下你需要使这些缓存无效： ::
+有时候你可能必须要使用记录指针（cursor）来直接插入/写数据，这种情况下你需要使这些缓存无效：\n::
 
   self.env.invalidate_all()
 
@@ -310,14 +310,14 @@ Active Record模式 注意事项
 search
 ###############
 
-现在 ``seach`` 方法直接返回一个记录集： ::
+现在 ``seach`` 方法直接返回一个记录集：\n::
 
     >>> self.search([('is_company', '=', True)])
     res.partner(7, 6, 18, 12, 14, 17, 19, 8,...)
     >>> self.search([('is_company', '=', True)])[0].name
     'Camptocamp'
 
-你可以使用env来调用 search ： ::
+你可以使用env来调用 search ：\n::
 
     >>> self.env['res.users'].search([('login', '=', 'admin')])
     res.users(1,)
@@ -328,7 +328,7 @@ search_read
 
 ``search_read`` 方法加入进来了。它会执行一个 search 并返回一个字典（dict）列表（list）。
 
-这里我们获取所有合作伙伴名称： ::
+这里我们获取所有合作伙伴名称：\n::
 
     >>> self.search_read([], ['name'])
     [{'id': 3, 'name': u'Administrator'},
@@ -338,7 +338,7 @@ search_read
 
 search_count
 #####################
-``search_count`` 方法返回符合搜索域（domain）定义的记录数量： ::
+``search_count`` 方法返回符合搜索域（domain）定义的记录数量：\n::
 
     >>> self.search_count([('is_company', '=', True)])
     26L
@@ -346,7 +346,7 @@ search_count
 
 检索
 ----------
-检索是从数据获取记录的标准方法。现在检索会返回一个记录集： ::
+检索是从数据获取记录的标准方法。现在检索会返回一个记录集：\n::
 
     >>> self.browse([1, 2, 3])
     res.partner(1, 2, 3)
@@ -360,7 +360,7 @@ search_count
 使用 Active Record 模式
 ###############################
 
-现在可以用 Active Record 模式来写入： ::
+现在可以用 Active Record 模式来写入：\n::
 
     @api.one
     def any_write(self):
@@ -386,7 +386,7 @@ search_count
 从记录集写入
 ###################
 
-从记录集写入： ::
+从记录集写入：\n::
 
     @api.multi
     ...
@@ -423,7 +423,7 @@ will not introspect to look for the relation. ::
 从记录拷贝
 #################
 
-从记录拷贝： ::
+从记录拷贝：\n::
 
     >>> @api.one
     >>> ...
@@ -434,7 +434,7 @@ will not introspect to look for the relation. ::
 从记录集拷贝
 ###################
 
-从记录集拷贝： ::
+从记录集拷贝：\n::
 
     >>> @api.multi
     >>> ...
@@ -445,7 +445,7 @@ will not introspect to look for the relation. ::
 创建
 ---------
 
-创建方法没有变化，除了它现在也是返回一个记录集： ::
+创建方法没有变化，除了它现在也是返回一个记录集：\n::
 
   self.create({'name': 'New name'})
 
@@ -461,7 +461,7 @@ will not introspect to look for the relation. ::
 
 记录、记录集和环境共用同一个记录指针。
 
-所以你可以用如下方法来访问记录指针： ::
+所以你可以用如下方法来访问记录指针：\n::
 
   def my_fun(self):
       cursor = self._cr
@@ -474,7 +474,7 @@ will not introspect to look for the relation. ::
 使用线程
 ============
 使用线程时你必须创建自己的记录指针，并且在每个线程里初始化一个新的环境。
-数据库操作提交在提交记录指针时完成： ::
+数据库操作提交在提交记录指针时完成：\n::
 
    with Environment.manage():  # 类方法
        env = Environment(cr, uid, context)
